@@ -26,24 +26,13 @@ class Card {
     this._productId = cardItem.productId;
     this._code = cardItem.code;
     this._title = cardItem.title;
-    this._description = cardItem.description;
     this._primaryImageUrl = cardItem.primaryImageUrl;
     this._assocProducts = cardItem.assocProducts;
-    this._weight = cardItem.weight;
-    this._unit = cardItem.unit;
-    this._unitFull = cardItem.unitFull;
-    this._unitRatio = cardItem.unitRatio;
-    this._unitAlt = cardItem.unitAlt;
-    this._unitRatioAlt = cardItem.unitRatioAlt;
-    this._unitFullAlt = cardItem.unitFullAlt;
     this._priceRetail = cardItem.priceRetail;
     this._priceRetailAlt = cardItem.priceRetailAlt;
     this._priceGold = cardItem.priceGold;
     this._priceGoldAlt = cardItem.priceGoldAlt;
     this._bonusAmount = cardItem.bonusAmount;
-    this._hasAlternateUnit = cardItem.hasAlternateUnit;
-    this._isActive = cardItem.isActive;
-    this._modified = cardItem.modified;
     this.quantity = 0;
     this._currentPriceGold = this._priceGold;
     this._currentPriceRetail = this._priceRetail;
@@ -56,8 +45,8 @@ class Card {
       .cloneNode(true);
   };
 
-  // Количество бонусных баллов (приблизительно 60% от полной цены)
-  _bonusRandomizer = () => {
+  // Количество бонусных баллов (~60% полной цены)
+  _bonusGambler = () => {
     return (Math.floor(Math.random() * (this._priceRetail - this._priceGold)) + Math.floor(this._priceGold * .6));
   };
 
@@ -69,8 +58,7 @@ class Card {
     this._cardItem.querySelector('.product_description .product__link').textContent = this._title;
     this._cardItem.querySelector('.goldPrice').textContent = `${Math.floor(this._priceGoldAlt)},00`;
     this._cardItem.querySelector('.retailPrice').textContent = `${Math.floor(this._priceRetailAlt)},00`;
-    this._cardItem.querySelector('.product_price_points .ng-binding').textContent = `${'Можно купить за '} ${this._bonusRandomizer()} балла`;
-    // this._cardItem.querySelector('.product_description .product__link').textContent = this._description; // При необходимости, можно добавить описание товара
+    this._cardItem.querySelector('.product_price_points .ng-binding').textContent = `${'Можно купить за '} ${this._bonusGambler()} балла`;
 
     // Добавляет модификатор '_220x220_1' к изображению товара
     if (typeof this._primaryImageUrl === 'string') {
@@ -147,3 +135,16 @@ const utilsRemoveClassForSiblings = (target, className) => {
     sib.classList.remove(className)
   );
 };
+
+    // Неиспользуемые данные
+    // this._description = cardItem.description;
+    // this._hasAlternateUnit = cardItem.hasAlternateUnit;
+    // this._isActive = cardItem.isActive;
+    // this._modified = cardItem.modified;
+    // this._weight = cardItem.weight;
+    // this._unit = cardItem.unit;
+    // this._unitFull = cardItem.unitFull;
+    // this._unitRatio = cardItem.unitRatio;
+    // this._unitAlt = cardItem.unitAlt;
+    // this._unitRatioAlt = cardItem.unitRatioAlt;
+    // this._unitFullAlt = cardItem.unitFullAlt;
