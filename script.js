@@ -13,7 +13,9 @@ const getFetchProducts = () => {
       console.log('Ошибка. Запрос не выполнен');
     });
 };
+
 getFetchProducts();
+const cardsContainer = document.querySelector('.product__area');
 console.log('HTML-разметка и классы не менялись. Добавлен только Template.');
 
 // Карточка с товаром
@@ -54,26 +56,23 @@ class Card {
       .cloneNode(true);
   };
 
-  // Количества бонусных баллов нет в products.json
-  // поэтому я заполняю HTML-разметку случайным значением
-  // диапазон: от цены по карте клиента до полной цены
+  // Количество бонусных баллов (приблизительно 60% от полной цены)
   _bonusRandomizer = () => {
-    return (Math.floor(Math.random() * (this._priceRetail - this._priceGold)) + this._priceGold);
+    return (Math.floor(Math.random() * (this._priceRetail - this._priceGold)) + Math.floor(this._priceGold * .6));
   };
 
-  // Генерирую карточку, ставлю обработчики событий
+  // Генерация карточки
   generateCard = () => {
     this._cardItem = this._getTemplate();
     this._cardItem.querySelector('.btn_cart').setAttribute('data-product-id', this._productId); // 1.	У кнопки «Купить» должен быть атрибут «data-product-id» с уникальным «id» товара
     this._cardItem.querySelector('.product_code').textContent = this._code;
     this._cardItem.querySelector('.product_description .product__link').textContent = this._title;
-    this._cardItem.querySelector('.goldPrice').textContent = this._priceGoldAlt;
-    this._cardItem.querySelector('.retailPrice').textContent = this._priceRetailAlt;
+    this._cardItem.querySelector('.goldPrice').textContent = `${Math.floor(this._priceGoldAlt)},00`;
+    this._cardItem.querySelector('.retailPrice').textContent = `${Math.floor(this._priceRetailAlt)},00`;
     this._cardItem.querySelector('.product_price_points .ng-binding').textContent = `${'Можно купить за '} ${this._bonusRandomizer()} балла`;
-    // this._cardItem.querySelector('.product_description .product__link').textContent = this._description;
-    // При необходимости, можно добавить описание товара
+    // this._cardItem.querySelector('.product_description .product__link').textContent = this._description; // При необходимости, можно добавить описание товара
 
-    // Добавляю модификатор '_220x220_1' к изображению товара
+    // Добавляет модификатор '_220x220_1' к изображению товара
     if (typeof this._primaryImageUrl === 'string') {
       const [path, format] = this._primaryImageUrl.split(/\.(?=[^\.]+$)/);
       const url = `${path}_220x220_1.${format}`;
@@ -87,7 +86,7 @@ class Card {
     return this._cardItem;
   };
 
-  // Добавляю по списку сопутствующие товары
+  // Добавляет сопутствующие товары
   _addLinks() {
     const productTags = this._cardItem.querySelector('.product_tags');
     const listTextLinks = this._assocProducts.split(';');
@@ -143,7 +142,6 @@ class Card {
   }
 }
 
-const cardsContainer = document.querySelector('.product__area');
 const utilsRemoveClassForSiblings = (target, className) => {
   [...target.parentElement.children].forEach((sib) =>
     sib.classList.remove(className)
