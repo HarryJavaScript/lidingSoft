@@ -16,7 +16,6 @@ const getFetchProducts = () => {
 
 getFetchProducts();
 const cardsContainer = document.querySelector('.product__area');
-console.log('HTML-разметка и классы не менялись. Добавлен только Template.');
 
 // Карточка с товаром
 class Card {
@@ -135,16 +134,3 @@ const utilsRemoveClassForSiblings = (target, className) => {
     sib.classList.remove(className)
   );
 };
-
-    // Неиспользуемые данные
-    // this._description = cardItem.description;
-    // this._hasAlternateUnit = cardItem.hasAlternateUnit;
-    // this._isActive = cardItem.isActive;
-    // this._modified = cardItem.modified;
-    // this._weight = cardItem.weight;
-    // this._unit = cardItem.unit;
-    // this._unitFull = cardItem.unitFull;
-    // this._unitRatio = cardItem.unitRatio;
-    // this._unitAlt = cardItem.unitAlt;
-    // this._unitRatioAlt = cardItem.unitRatioAlt;
-    // this._unitFullAlt = cardItem.unitFullAlt;
